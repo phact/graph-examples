@@ -2,11 +2,10 @@
 
 HOST=$(hostname)
 
-if [ ! -d "/tmp/dse-graph-loader-*" ]
-then
-    echo "dse-graph-loader not found in the /tmp directory. Exiting"
-    exit
-fi
+for f in /tmp/dse-graph-loader-*; do
+    [ -e "$f" ] && echo "graph loader found" || (echo "dse-graph-loader not found in the /tmp directory. Exiting"; exit;)
+    break
+done
 
 if [ "$HOST" == "node0" ]
 then
