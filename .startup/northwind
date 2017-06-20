@@ -2,7 +2,14 @@
 
 HOST=$(hostname)
 
+if [ ! -d "/tmp/dse-graph-loader-*" ]
+then
+    echo "dse-graph-loader not found in the /tmp directory. Exiting"
+    exit
+fi
+
 if [ "$HOST" == "node0" ]
+then
     echo "Using node0 for address"
     java -Xms4096M -Xmx4096M -cp /tmp/dse-graph-loader-*/dse-graph-loader-*-uberjar.jar com.datastax.dsegraphloader.cli.Executable -graph northwind -address node0 northwind-mapping.groovy
 else
